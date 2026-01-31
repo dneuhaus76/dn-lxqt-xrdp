@@ -6,6 +6,11 @@ on:
   workflow_dispatch:      # Ermöglicht manuelles Starten über die GitHub-Oberfläche
 
 jobs:
+  display-variables:
+    name: ${{ vars.SYSLANG }}
+    # You can use configuration variables with the `vars` context for dynamic jobs
+
+jobs:
   build-and-push:
     runs-on: ubuntu-latest
     
