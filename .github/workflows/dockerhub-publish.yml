@@ -31,10 +31,11 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/arm64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/dn-lxqt-xrdp:0.1
+            ${{ secrets.DOCKERHUB_USERNAME }}/dn-lxqt-xrdp:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/dn-lxqt-xrdp:1.0
           # Hier werden die OCI-Labels automatisch gesetzt
           labels: |
             org.opencontainers.image.title=dn-lxqt-xrdp
