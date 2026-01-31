@@ -1,8 +1,8 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches: [ "main" ] # Startet den Build, sobald du in den 'main' Branch pushst
+  #push:
+    #branches: [ "main" ] # Startet den Build, sobald du in den 'main' Branch pushst
   workflow_dispatch:      # Ermöglicht manuelles Starten über die GitHub-Oberfläche
 
 jobs:
