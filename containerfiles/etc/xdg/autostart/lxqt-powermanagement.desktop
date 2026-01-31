@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+TryExec=lxqt-powermanagement
+Exec=lxqt-powermanagement
+OnlyShowIn=LXQt;
+X-LXQt-Need-Tray=false
+X-LXQt-Module=false
+Hidden=true
+Name=Power Management

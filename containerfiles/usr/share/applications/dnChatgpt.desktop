@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=ChatGPT
+Exec=/usr/bin/chromium --app="https://chatgpt.com/"
+Icon=chatGPT-logo
+Categories=LXQt;Network;

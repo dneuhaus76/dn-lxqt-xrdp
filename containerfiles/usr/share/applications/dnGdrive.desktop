@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Gdrive
+Exec=/usr/bin/chromium --app="https://drive.google.com/drive/home"
+Icon=gdrive-logo
+Categories=LXQt;Network;

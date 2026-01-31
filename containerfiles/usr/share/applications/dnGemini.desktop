@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Gemini
+Exec=/usr/bin/chromium --app="https://gemini.google.com/app?hl=de"
+Icon=gemini-logo
+Categories=LXQt;Network;

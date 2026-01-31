@@ -1,0 +1,15 @@
+{
+  "ExtensionInstallForcelist": [
+    "oboonakemofpalcgghocfoadofidjkkk;https://clients2.google.com/service/update2/crx"
+  ],
+  "BackgroundModeEnabled": false,
+  "BookmarkBarEnabled": true,
+  "BrowserAddPersonEnabled": false,
+  "ComponentUpdatesEnabled": false,
+  "DefaultBrowserSettingEnabled": false,
+  "MetricsReportingEnabled": false,
+  "PasswordManagerEnabled": false,
+  "ShowHomeButton": true,
+  "SyncDisabled": true,
+  "HideWebStoreIcon": false
+}

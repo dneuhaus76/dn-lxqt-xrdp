@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=NotebookLM
+Exec=/usr/bin/chromium --app="https://notebooklm.google.com/"
+Icon=notbookLM-logo
+Categories=LXQt;Network;
