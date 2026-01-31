@@ -21,8 +21,9 @@ Docker "only" image connect for xrdp (Tested on arm64 raspberry pi 4 and amd64 "
 
 ## run
 ### docker command
+quick & dirty "fix" for "chromium sandbox mode" & sshfs empty file content **--cap-add=SYS_ADMIN**
 ```
-docker run -d -p 3389:3389 dneuhaus76/dn-lxqt-xrdp:latest
+docker run -d -p 3389:3389 --cap-add=SYS_ADMIN dneuhaus76/dn-lxqt-xrdp:latest
 ```
 ### docker compose
 ```
