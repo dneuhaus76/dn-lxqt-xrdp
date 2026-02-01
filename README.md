@@ -51,6 +51,7 @@ services:
       - "/dev/fuse:/dev/fuse" #if sshfs-emty
 
     security_opt:
+      - seccomp=./seccomp.json # chromium fix - no need SYS_ADMIN
       - apparmor:unconfined #remove if all works as expected
 
 volumes:
