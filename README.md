@@ -68,3 +68,7 @@ example: with sound redirection and current machines user-home into "thinclient_
 ```
 rdesktop -k de-ch -r sound:local -r disk:"$(hostname)"=/home/${USER} [myserver]
 ```
+
+### chromium in docker:
+Or maybe with another browser like firefox...
+https://medium.com/code-and-coffee/running-chromium-in-docker-without-selling-your-soul-433e591802f2
