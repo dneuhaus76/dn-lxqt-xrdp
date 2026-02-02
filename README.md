@@ -44,15 +44,15 @@ services:
       - dn-lxqt-xrdp
 
     cap_add:
-      - SYS_ADMIN  #if sshfs-emty
+      - SYS_ADMIN  #if sshfs-emty 
 
     devices:
-      - "/dev/dri:/dev/dri" #GPU-Acceleration (V3D)
+      #- "/dev/dri:/dev/dri" #GPU-Acceleration (V3D)
       - "/dev/fuse:/dev/fuse" #if sshfs-emty
 
-    security_opt:
-      - seccomp=./seccomp.json # chromium fix - no need SYS_ADMIN
-      - apparmor:unconfined #remove if all works as expected
+    #security_opt:
+      #- seccomp=./seccomp.json # chromium fix - no need SYS_ADMIN
+      #- apparmor:unconfined #remove if all works as expected
 
 volumes:
   dn-lxqt-xrdp_home:

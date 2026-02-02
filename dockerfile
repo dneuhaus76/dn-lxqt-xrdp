@@ -89,7 +89,7 @@ LABEL org.opencontainers.image.authors="Daniel Neuhaus <kueder1@gmx.net>" \
 
 # Projekt-Details
 LABEL org.opencontainers.image.title="Debian 12 VDI (LXQt + XRDP)" \
-      org.opencontainers.image.description="VDI-Lösung mit xfwm4 für ARM64 (Raspberry Pi) und x86_64" \
+      org.opencontainers.image.description="Debian LXQt Desktop VDI mit xfwm4 und xrdp" \
       org.opencontainers.image.version="1.0"
 
 # Technische Spezifikationen (Meta-Daten)
@@ -104,10 +104,9 @@ LABEL de.dneuhaus.base-distro="Debian 12 (Bookworm)" \
 COPY --from=module-builder /tmp/xrdp-audio-out/. /
 
 
-# Verzeichnisstruktur sicherstellen
-COPY ./containerfiles/etc/. /etc/
-COPY ./containerfiles/usr/. /usr/
-COPY ./containerfiles/tmp/. /tmp/
+# meine Dateien kopieren
+ADD ./containerfiles.tar /tmp/staging/
+COPY ./install.sh /tmp/
 
 
 # Init-Skripte & User-Setup
@@ -120,4 +119,3 @@ EXPOSE 3389
 
 
 CMD ["/usr/bin/supervisord", "-n"]
-

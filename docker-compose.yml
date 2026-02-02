@@ -17,26 +17,26 @@ services:
     networks:
       - dn-lxqt-xrdp
 
-    #cap_add:
-      #- SYS_ADMIN #sonst sshfs-Dateiinhalt ist leer
+    cap_add:
+      - SYS_ADMIN #sonst sshfs-Dateiinhalt ist leer
 
     devices:
-      - "/dev/dri:/dev/dri"   #Wichtig für GPU-Beschleunigung (V3D)
+      #- "/dev/dri:/dev/dri"   #Wichtig für GPU-Beschleunigung (V3D)
       - "/dev/fuse:/dev/fuse" #sonst sshfs-Dateiinhalt ist leer
 
-    security_opt:
+    #security_opt:
       # Der Pfad zur JSON-Datei auf dem HOST-System (wegen chromium erstellt)
-      - seccomp=./seccomp.json
+      #- seccomp=./seccomp.json
       #- seccomp:unconfined
       #- apparmor:unconfined
 
 volumes:
   dn-lxqt-xrdp_home:
     name: "dn-lxqt-xrdp_home"
-    #external: true
+    external: true
 
 networks:
   dn-lxqt-xrdp:
     driver: bridge
     name: "dn-lxqt-xrdp"
-    #external: true
+    external: true
