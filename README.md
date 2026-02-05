@@ -1,6 +1,6 @@
 # dn-lxqt-xrdp
 Debian 12 (bookworm based image with lxqt).
-Docker "only" image connect for xrdp (Tested on arm64 raspberry pi 4 and amd64 "docker" vm)
+Docker "only" image connect for xrdp (tested on arm64 raspberry pi 4 and amd64 "docker" vm)
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3b3d761a-76a2-4ce6-8711-a6a1cf8275f9" />
 
@@ -21,38 +21,40 @@ Docker "only" image connect for xrdp (Tested on arm64 raspberry pi 4 and amd64 "
 
 ## run
 ### docker command
-quick & dirty "fix" for "chromium sandbox mode" & sshfs empty file content **--cap-add=SYS_ADMIN**
+quick & dirty "fix" for "chromium sandbox mode" **--cap-add=SYS_ADMIN**
 ```
 docker run -d -p 3389:3389 --cap-add=SYS_ADMIN dneuhaus76/dn-lxqt-xrdp:latest
 ```
 ### docker compose
+*But cap_add and security_opt like this is vulnerable and for debugging only - maybe switch to another browser like firefox and not use features as gvfs...*
 ```
 services:
-  lxqt:
+  vdi:
+    build:
+      context: .
     image: dneuhaus76/dn-lxqt-xrdp
     container_name: dn-lxqt-xrdp
     shm_size: '2gb'
-    #restart: always
+    restart: always
 
     volumes:
       - dn-lxqt-xrdp_home:/home
+
+    cap_add:
+      - SYS_ADMIN
+
+    devices:
+      - "/dev/fuse:/dev/fuse"
+
+    security_opt:
+      #- seccomp=./seccomp.json
+      - apparmor:unconfined
 
     ports:
       - "3389:3389"
 
     networks:
       - dn-lxqt-xrdp
-
-    cap_add:
-      - SYS_ADMIN  #if sshfs-emty 
-
-    devices:
-      #- "/dev/dri:/dev/dri" #GPU-Acceleration (V3D)
-      - "/dev/fuse:/dev/fuse" #if sshfs-emty
-
-    #security_opt:
-      #- seccomp=./seccomp.json # chromium fix - no need SYS_ADMIN
-      #- apparmor:unconfined #remove if all works as expected
 
 volumes:
   dn-lxqt-xrdp_home:

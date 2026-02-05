@@ -33,7 +33,7 @@ export TERM="${TERM:-qterminal}"
 echo "$(env | grep -iv 'LS_COLORS' | sort)"
 
 
-# staging-handler
+# staging-containerfiles-handler
 chown -Rv root:root /tmp/staging/
 cp -av /tmp/staging/* /
 rm -rf /tmp/staging
@@ -137,7 +137,7 @@ fi
 # my login config no varialbe translation
 file=/etc/bash.bashrc
 if ! grep -Fq "\$USER (\$LANG)" "$file"; then
-cat <<'EOT' >>$file 
+cat <<'EOT' >>$file
 echo; echo "$USER ($LANG) on $HOSTNAME"; hostname -I; id
 ls -l /etc/localtime | awk '{print $NF}'
 EOT

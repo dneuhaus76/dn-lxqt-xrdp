@@ -35,10 +35,10 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/dn-lxqt-xrdp:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/dn-lxqt-xrdp:1.0
+            ${{ secrets.DOCKERHUB_USERNAME }}/dn-lxqt-xrdp:12.13
           # Hier werden die OCI-Labels automatisch gesetzt
           labels: |
             org.opencontainers.image.title=dn-lxqt-xrdp
             org.opencontainers.image.source=https://github.com/dneuhaus76/dn-lxqt-xrdp
             org.opencontainers.image.description=Debian LXQt Desktop VDI mit xfwm4 und xrdp
-            org.opencontainers.image.version=1.0
+            org.opencontainers.image.version=12.13

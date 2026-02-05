@@ -1,2 +1,0 @@
-# In dieser Datei setzen wir die Flags, die Chromium immer mitgeben soll
-export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --disable-infobars --disable-dev-shm-usage --gpu-no-context-lost"

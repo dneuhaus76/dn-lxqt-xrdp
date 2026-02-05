@@ -1,15 +1,24 @@
 services:
-  lxqt:
+  vdi:
     build:
-      context: . # Pfad zu Ihrem Dockerfile
+      context: .
     image: dneuhaus76/dn-lxqt-xrdp
     container_name: dn-lxqt-xrdp
-    #platform: linux/arm64
     shm_size: '2gb'
-    #restart: always
+    restart: always
 
     volumes:
       - dn-lxqt-xrdp_home:/home
+
+    cap_add:
+      - SYS_ADMIN
+
+    devices:
+      - "/dev/fuse:/dev/fuse"
+
+    security_opt:
+      #- seccomp=./seccomp.json
+      - apparmor:unconfined
 
     ports:
       - "3389:3389"
@@ -17,23 +26,9 @@ services:
     networks:
       - dn-lxqt-xrdp
 
-    cap_add:
-      - SYS_ADMIN #sonst sshfs-Dateiinhalt ist leer
-
-    devices:
-      #- "/dev/dri:/dev/dri"   #Wichtig für GPU-Beschleunigung (V3D)
-      - "/dev/fuse:/dev/fuse" #sonst sshfs-Dateiinhalt ist leer
-
-    #security_opt:
-      # Der Pfad zur JSON-Datei auf dem HOST-System (wegen chromium erstellt)
-      #- seccomp=./seccomp.json
-      #- seccomp:unconfined
-      #- apparmor:unconfined
-
 volumes:
   dn-lxqt-xrdp_home:
     name: "dn-lxqt-xrdp_home"
-    external: true
 
 networks:
   dn-lxqt-xrdp:

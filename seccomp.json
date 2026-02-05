@@ -2,14 +2,6 @@
     "defaultAction": "SCMP_ACT_ERRNO",
     "syscalls": [
         {
-            "names": ["mount", "unmount2"],
-            "action": "SCMP_ACT_ALLOW",
-            "args": [],
-            "comment": "Erforderlich für GVFS-FUSE in der VDI",
-            "includes": {},
-            "excludes": {}
-        },
-        {
             "name": "accept",
             "action": "SCMP_ACT_ALLOW",
             "args": null
