@@ -24,15 +24,22 @@ Docker "only" image connect for xrdp (tested on arm64 raspberry pi 4 and amd64 "
 - name: **user** & pw:**user**
 
 ## tests
-Warning: some of this "features are only working by decreased security"
+*Warning: some of this "features" are only working by decreased security*
 ### copy & paste
 - source: Windows rdp client --> VDI container
-- - (file copied to desktop) = ok
+  - copy file to desktop = ok
+  - Windows Clipboard to a text file = ok
+- source: linux rdesktop --> VDI container 
+  - copy file to desktop = no (but you can use the redirection)
 
 ### "drive/resource" redirection
 * source: Windows rdp client --> VDI container = ok
-* <img width="696" height="366" alt="image" src="https://github.com/user-attachments/assets/a17f7df9-faf9-457f-9330-6799a2335701" />
 
+  <img width="50%" height="50%" alt="image" src="https://github.com/user-attachments/assets/a17f7df9-faf9-457f-9330-6799a2335701" />
+  
+* source: linux rdesktop --> VDI container = ok
+
+  <img width="50%" height="50%" alt="image" src="https://github.com/user-attachments/assets/0a8cb58a-11a1-4e89-92fe-eeaaaf0ae247" />
 
 ## run
 ### docker command
