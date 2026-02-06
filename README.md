@@ -8,16 +8,31 @@ Docker "only" image connect for xrdp (tested on arm64 raspberry pi 4 and amd64 "
 ### supervisor (startup manager)
 ### xrdp (for connection)
 ### xfwm4 & lxqt
+
 ### Apps
 - chromium (incl. keepassXC add-in)
   - configured with json-policy-file
 - keepassXC (preconfigured for chromium)
 - thunderbird
 - featherpad,lximage,screengrab,qpdfview,qterminal,qps
+
 ### sound
-- pipewire-module-xrdp
+- installed: pipewire-module-xrdp
+- need sound-test-command? - "speaker-test -t sine -f 440 -c 2"
+
 ### local user
-- name: user & pw:user
+- name: **user** & pw:**user**
+
+## tests
+Warning: some of this "features are only working by decreased security"
+### copy & paste
+- source: Windows rdp client --> VDI container
+- - (file copied to desktop) = ok
+
+### "drive/resource" redirection
+* source: Windows rdp client --> VDI container = ok
+* <img width="696" height="366" alt="image" src="https://github.com/user-attachments/assets/a17f7df9-faf9-457f-9330-6799a2335701" />
+
 
 ## run
 ### docker command
