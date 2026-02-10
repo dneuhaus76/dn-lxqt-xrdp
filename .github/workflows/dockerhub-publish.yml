@@ -1,14 +1,12 @@
 name: Build and Push Docker Image
 
 on:
-  #push:
-    #branches: [ "main" ] # Startet den Build, sobald du in den 'main' Branch pushst
-  workflow_dispatch:      # Ermöglicht manuelles Starten über die GitHub-Oberfläche
+  workflow_dispatch: # Manuelles Starten
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -16,7 +14,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
-          platforms: all
+          platforms: amd64,arm64 # "all" ist oft unnötig zeitfressend
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -33,12 +31,13 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
+          # FIX: Diese Zeilen verhindern die inkompatiblen Manifest-Anhänge
+          provenance: false
+          sbom: false
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/dn-lxqt-xrdp:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/dn-lxqt-xrdp:12.13
-          # Hier werden die OCI-Labels automatisch gesetzt
           labels: |
             org.opencontainers.image.title=dn-lxqt-xrdp
             org.opencontainers.image.source=https://github.com/dneuhaus76/dn-lxqt-xrdp
-            org.opencontainers.image.description=Debian LXQt Desktop VDI mit xfwm4 und xrdp
-            org.opencontainers.image.version=12.13
+            org.opencontainers.image.description=LXQt Desktop VDI mit XRDP
