@@ -1,6 +1,7 @@
 # dn-lxqt-xrdp
 Debian 12 (bookworm based image with lxqt).
 Docker "only" image connect for xrdp (tested on arm64 raspberry pi 4 and amd64 "docker" vm)
+Why rdp: I think RDP is not bad and the common denominator (If migrating from other OS where RDP is widespread) - So you have no "Big Bang" pressure if something is not working as desired
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3b3d761a-76a2-4ce6-8711-a6a1cf8275f9" />
 
@@ -97,3 +98,54 @@ rdesktop -k de-ch -r sound:local -r disk:"$(hostname)"=/home/${USER} [myserver]
 ### chromium in docker:
 Or maybe with another browser like firefox...
 https://medium.com/code-and-coffee/running-chromium-in-docker-without-selling-your-soul-433e591802f2
+
+
+## A UseCase - Network-Diagram
+
+Here you could either or connect through _(I prefer tunneled RDP, but cuacamole is top for administration work)_
+* cuacamole: https (clientless) --> RDP --> VDI
+* ssh tunnel: rdpclient --> VDI
+
+```mermaid
+graph TB
+   subgraph WAN [Internet / Public Zone]
+       User((User<br/>mstsc via tunnel<br/>id_ed25519))
+       WebBrowser(User<br/>Webbrowser<br/>Clientless)
+   end
+
+
+   subgraph TargetGateway [Gateway Layer]
+       forward_ssh[Internet-Gateway<br/>Port FW: xxx22]
+       forward_https[Internet-Gateway<br/>Port FW: xxx80]
+   end
+
+
+   subgraph Docker_Host [Raspberry Pi Node]
+       subgraph DMZ_Net [Management Network]
+           Bastion["<b>dn-bastion-ssh</b><br/>2FA (key & passphrase)<br/>Hardened OpenSSH<br/>(ssh Tunnel)"]
+       end
+       subgraph DMZ_HTTPS_Net [Management Network]
+           Guacamole["<b>dn-guacamole</b><br/>2FA</br>Clientless Access<br/>(HTTPS Stream)"]
+       end
+       subgraph Service_Net [Internal Service Mesh]
+           RDP_VDI["<b>dn-lxqt-xrdp</b><br/>Debian 12 VDI<br/>(XFWM4 + LXQt)"]
+           Auth["<b>dn-srv-net</b><br/>Identity & Net Core<br/>(LDAP/DNS/DHCP)"]
+       end
+   end
+
+
+   %% Connection Logic
+   User -- "SSH Tunnel via xxx22" --> forward_ssh
+   WebBrowser -- "https" --> forward_https
+   forward_ssh -- "Forward" --> Bastion
+   forward_https -- "Forward" --> Guacamole
+   Bastion -- "L-Forward 33890:3389" --> RDP_VDI
+   RDP_VDI -- "Auth Request" --> Auth
+   Guacamole -- "RDP-over-HTTP" --> RDP_VDI
+
+
+   %% Styling
+   style Bastion fill:#f96,stroke:#333,stroke-width:2px
+   style Guacamole fill:#f96,stroke:#333,stroke-width:2px
+   style RDP_VDI fill:#bbf,stroke:#333,stroke-width:2px
+```
