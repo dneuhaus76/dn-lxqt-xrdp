@@ -101,7 +101,7 @@ https://medium.com/code-and-coffee/running-chromium-in-docker-without-selling-yo
 
 
 ## A UseCase - Network-Diagram
-
+This is an example only...
 Here you could either or connect through _(I prefer tunneled RDP, but cuacamole is top for administration work)_
 * cuacamole: https (clientless) --> RDP --> VDI
 * ssh tunnel: rdpclient --> VDI
