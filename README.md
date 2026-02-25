@@ -1,4 +1,6 @@
-# dn-lxqt-xrdp
+# dn-lxqt-xrdp 
+[docker hub](https://hub.docker.com/r/dneuhaus76/dn-lxqt-xrdp)
+
 Debian 12 (bookworm based image with lxqt).
 Docker "only" image connect for xrdp (tested on arm64 raspberry pi 4 and amd64 "docker" vm)
 Why rdp: I think RDP is not bad and the common denominator (If migrating from other OS where RDP is widespread) - So you have no "Big Bang" pressure if something is not working as desired
@@ -6,6 +8,9 @@ Why rdp: I think RDP is not bad and the common denominator (If migrating from ot
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3b3d761a-76a2-4ce6-8711-a6a1cf8275f9" />
 
 ## included
+### chromium in docker (take notice):
+I like chomium but --> maybe with another browser...
+https://medium.com/code-and-coffee/running-chromium-in-docker-without-selling-your-soul-433e591802f2
 ### supervisor (startup manager)
 ### xrdp (for connection)
 ### xfwm4 & lxqt
@@ -19,10 +24,11 @@ Why rdp: I think RDP is not bad and the common denominator (If migrating from ot
 
 ### sound
 - installed: pipewire-module-xrdp
-- need sound-test-command? - "speaker-test -t sine -f 440 -c 2"
+- need sound-test-command? - **"speaker-test -t sine -f 440 -c 2"**
 
 ### local user
-- name: **user** & pw:**user**
+- name: **user**
+- pw: **user**
 
 ## tests
 *Warning: some of this "features" are only working by decreased security*
@@ -95,13 +101,8 @@ example: with sound redirection and current machines user-home into "thinclient_
 rdesktop -k de-ch -r sound:local -r disk:"$(hostname)"=/home/${USER} [myserver]
 ```
 
-### chromium in docker:
-Or maybe with another browser like firefox...
-https://medium.com/code-and-coffee/running-chromium-in-docker-without-selling-your-soul-433e591802f2
-
-
 ## A UseCase - Network-Diagram
-This is an example only...
+This is an example only (but a working example in my lab)...
 Here you could either or connect through _(I prefer tunneled RDP, but cuacamole is top for administration work)_
 * cuacamole: https (clientless) --> RDP --> VDI
 * ssh tunnel: rdpclient --> VDI
