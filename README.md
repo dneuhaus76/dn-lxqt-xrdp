@@ -102,6 +102,46 @@ rdesktop -k de-ch -r sound:local -r disk:"$(hostname)"=/home/${USER} [myserver]
 ```
 
 ## A UseCase - Network-Diagram
+This is an example with tailscale vpn (but a working example in my lab)...
+</br>
+_vpn is not documented here_
+
+```mermaid
+flowchart TB
+ subgraph WAN["VPN Client installed (Internet)"]
+        win(("Win<br>mstsc, *<br>"))
+        lin(("Linux<br>rdesktop, *<br>"))
+        mobile(("Mobile<br>http, *<br>"))
+  end
+ subgraph TargetGateway["tailscale management (online)"]
+        forward_ssh["Connection Point"]
+  end
+ subgraph DMZ_Net["Docker Network"]
+        Bastion["<b>tailscale<br></b>tunnel &amp; ttyd<br>"]
+  end
+ subgraph Service_Net["Internal Service Mesh"]
+        RDP_VDI["<b>dn-lxqt-xrdp</b><br>Debian 12 VDI<br>(XFWM4 + LXQt)"]
+        Auth["<b>dn-srv-net</b><br>Identity &amp; Net Core<br>(LDAP/DNS/DHCP)"]
+  end
+ subgraph Docker_Host["Raspberry Pi Node"]
+        DMZ_Net
+        Service_Net
+  end
+    win -- vpn --> forward_ssh
+    lin -- vpn --> forward_ssh
+    mobile -- vpn --> forward_ssh
+    Bastion <-- vpn --> forward_ssh
+    Bastion --> Service_Net
+    RDP_VDI -- Auth Request --> Auth
+
+    style forward_ssh fill:#2962FF,color:#ffffff
+    style Bastion fill:#f96,stroke:#333,stroke-width:2px
+    style RDP_VDI fill:#bbf,stroke:#333,stroke-width:2px
+    style TargetGateway fill:#BBDEFB
+    style WAN stroke:#2962FF
+```
+
+## A UseCase 2 - Network-Diagram
 This is an example only (but a working example in my lab)...
 Here you could either or connect through _(I prefer tunneled RDP, but cuacamole is top for administration work)_
 * cuacamole: https (clientless) --> RDP --> VDI
